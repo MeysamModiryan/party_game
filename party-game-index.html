@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>آزمون شجاعت مهمانی 🥂</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;600;800&display=swap');
+:root{--gold:#e8c778;--ink:#17131e;--card:#241d2d;--muted:#c8bdce}
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;background:radial-gradient(circle at top,#46304d 0,#211927 48%,#100e15 100%);color:#fff;font-family:Vazirmatn,Tahoma,sans-serif;display:grid;place-items:center;padding:20px}
+main{width:min(100%,480px);background:linear-gradient(145deg,#302638,#1b1721);border:1px solid #8b7045;border-radius:28px;padding:30px 22px;text-align:center;box-shadow:0 25px 80px #0009}
+.badge{color:var(--gold);letter-spacing:2px;font-size:13px}
+h1{font-size:27px;margin:12px 0}
+p{color:var(--muted);line-height:2}
+button{font:inherit;border:0;border-radius:15px;padding:14px 18px;margin:7px;cursor:pointer;font-weight:800;transition:.2s}
+button:hover{transform:translateY(-2px);filter:brightness(1.1)}
+.primary{background:linear-gradient(135deg,#f3d994,#b8893e);color:#211727}
+.secondary{background:#51445a;color:white;border:1px solid #806c88}
+.hidden{display:none!important}
+.emoji{font-size:76px;margin:18px 0}
+.glass{font-size:70px;animation:clink .8s ease-in-out infinite alternate}
+@keyframes clink{to{transform:rotate(13deg) scale(1.08)}}
+.bottle{font-size:76px;animation:pop .7s ease-in-out infinite alternate}
+@keyframes pop{to{transform:rotate(-12deg) translateY(-8px)}}
+.dice{font-size:90px;display:inline-block;animation:roll 1s ease}
+@keyframes roll{0%{transform:rotate(0) scale(.5)}70%{transform:rotate(720deg) scale(1.15)}100%{transform:rotate(1080deg) scale(1)}}
+.result{font-size:21px;color:var(--gold);font-weight:800;line-height:1.9}
+.small{font-size:12px;color:#a99cad;margin-top:22px}
+</style>
+</head>
+<body>
+<main>
+  <div class="badge">THE PARTY CHALLENGE</div>
+  <section id="start">
+    <div class="emoji">🥂</div>
+    <h1>آزمون شجاعت مهمانی!</h1>
+    <p>یه سؤال خیلی مهم داریم...<br><strong>امشب مشروب می‌خوری؟</strong></p>
+    <button class="primary" onclick="showCheers()">آره، چرا که نه! 🥂</button>
+    <button class="secondary" onclick="firstNo()">نه، ممنون 🙅</button>
+  </section>
+
+  <section id="retry" class="hidden">
+    <div class="emoji">🤨</div>
+    <h1>صبر کن ببینم!</h1>
+    <p>یه فرصت دیگه بهت می‌دم... مطمئنی؟ 😏</p>
+    <button class="primary" onclick="showCheers()">باشه، قبول! 🥂</button>
+    <button class="secondary" onclick="secondNo()">نه، همچنان مخالفم!</button>
+  </section>
+
+  <section id="diceStage" class="hidden">
+    <div class="emoji">🎲</div>
+    <h1>آخرین شانس!</h1>
+    <p>تاس رو بنداز ببینیم شانس باهاته یا نه!<br>زوج یا فرد؟</p>
+    <div id="die" class="dice">🎲</div><br>
+    <button id="rollButton" class="primary" onclick="rollDice()">پرتاب تاس!</button>
+    <p id="diceResult" class="result"></p>
+  </section>
+
+  <section id="cheers" class="hidden">
+    <div class="bottle">🍾</div>
+    <h1>به افتخار رفیق!</h1>
+    <p>صدای باز شدن بطری... پِق!<br>لیوانت رو بالا ببر...</p>
+    <div class="glass">🥂</div>
+    <div class="result">CHEEEERS! 🎉</div>
+    <p>البته هرکس هرچی دوست داره می‌نوشه؛ مهم خوش‌گذرونیه ❤️</p>
+  </section>
+
+  <section id="even" class="hidden">
+    <div class="emoji">🧀🥒</div>
+    <h1>شانس آوردی!</h1>
+    <p class="result">ایرادی نداره رفیق! 😂</p>
+    <p>می‌تونی از مزه‌های مهمونی لذت ببری. انتخاب نوشیدنی کاملاً با خودته!</p>
+  </section>
+
+  <section id="odd" class="hidden">
+    <div class="emoji">🕵️‍♂️</div>
+    <h1>می‌دونم کی هستی!</h1>
+    <p class="result">فکر کردی از زیر آزمون در می‌ری؟ 😂</p>
+    <p>حکم هیئت داوران: دو لیتر عرق...<br><strong>عرقِ نعناع و دوغ! 🤣</strong></p>
+    <p>شوخی کردیم؛ هیچ‌کس مجبور به نوشیدن نیست.</p>
+  </section>
+  <div class="small">این بازی فقط برای خنده‌ست؛ انتخاب نوشیدنی همیشه با خودته.</div>
+</main>
+<script>
+function show(id){
+  document.querySelectorAll('main section').forEach(s=>s.classList.add('hidden'));
+  document.getElementById(id).classList.remove('hidden');
+}
+function showCheers(){show('cheers')}
+function firstNo(){show('retry')}
+function secondNo(){show('diceStage')}
+function rollDice(){
+  const button=document.getElementById('rollButton');
+  button.disabled=true;
+  const die=document.getElementById('die');
+  const result=document.getElementById('diceResult');
+  result.textContent='';
+  die.classList.remove('dice'); void die.offsetWidth; die.classList.add('dice');
+  let ticks=0;
+  const timer=setInterval(()=>{
+    die.textContent=['⚀','⚁','⚂','⚃','⚄','⚅'][Math.floor(Math.random()*6)];
+    ticks++;
+    if(ticks>12){
+      clearInterval(timer);
+      const n=Math.floor(Math.random()*6)+1;
+      die.textContent=['⚀','⚁','⚂','⚃','⚄','⚅'][n-1];
+      result.textContent='عدد '+n+' اومد!';
+      setTimeout(()=>show(n%2===0?'even':'odd'),1100);
+    }
+  },100);
+}
+</script>
+</body>
+</html>
